@@ -30,36 +30,43 @@ import com.example.dominguezborja_progamacion_firebase.Componentes.UiState.ViewM
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
 
 @Composable
-fun Home( viewModelTienda: ViewModelTienda = viewModel(), navigationToDetail:()-> Unit){
+fun Home(
+    viewModelTienda: ViewModelTienda = viewModel(),
+          navigationToDetail:()-> Unit,
+    onLoginSuccess: () -> Unit){
+
     val uiState by viewModelTienda.uistate.collectAsState()
     Column (horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center){
         Text(text = "Login", fontSize = 50.sp)
         Spacer(modifier = Modifier.padding(10.dp))
-        Login(viewModelTienda, uiState)
+        Login(viewModelTienda, uiState, onLoginSuccess)
         RegistroEntrar(navigationToDetail)
     }
 }
 
 @Composable
-fun Login(viewModel: ViewModelTienda, uiState: UiStateTienda){
+fun Login(viewModel: ViewModelTienda, uiState: UiStateTienda, onLoginSuccess: () -> Unit){
     Column(modifier = Modifier.padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         TextField(value =uiState.login,
-            onValueChange = {},
+            onValueChange = { viewModel.onEmailChange(it) },
             singleLine = true, label = { Text("Email") },
             modifier = Modifier.padding(10.dp)
                 .fillMaxWidth()
         )
         TextField(value = uiState.contraseña,
-            onValueChange = {},
+            onValueChange = { viewModel.onPasswordChange(it) },
             singleLine = true, label = { Text("Contraseña") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.padding(10.dp)
                 .fillMaxWidth()
             )
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()
+        Button(onClick = {viewModel.login(
+            onSuccess = onLoginSuccess,
+            onError = {println(it)}
+        )}, modifier = Modifier.fillMaxWidth()
             .padding(10.dp)) {
             Text("Entrar")
         }
@@ -78,10 +85,3 @@ fun RegistroEntrar(navigationToDetail:()-> Unit){
     }
 }
 
-@Preview(showBackground = true)
-@Composable
-fun verHome(){
-    DominguezBorja_progamacion_firebaseTheme {
-        Home{}
-    }
-}

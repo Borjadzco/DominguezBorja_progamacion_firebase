@@ -23,13 +23,16 @@ fun BasicNavigation(){
                     Home(
                         navigationToDetail = {
                         backStack.add(Routes.Registrar)
-                    })
+                    },
+                        onLoginSuccess = {}//Aqui tendria que poner las nuevas pantallas pero tengo que crearlas
+                    )
                 }
                 is Routes.Registrar -> NavEntry(key){
                     Registro(
                         navegationCancel = {
-                            backStack.add(Routes.Login)
-                        }
+                            backStack.removeLastOrNull()
+                        },
+                        onRegisterSuccess = {}//Aqui tendria que poner las nuevas pantallas pero tengo que crearlas
                     )
                 }
                 else -> NavEntry(key = Unit) {

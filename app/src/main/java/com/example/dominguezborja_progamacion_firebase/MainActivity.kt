@@ -14,8 +14,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.dominguezborja_progamacion_firebase.Componentes.Navegacion.BasicNavigation
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Home
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

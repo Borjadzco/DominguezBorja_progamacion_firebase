@@ -12,6 +12,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -19,10 +21,17 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.dominguezborja_progamacion_firebase.Componentes.UiState.UiStateTienda
+import com.example.dominguezborja_progamacion_firebase.Componentes.UiState.ViewModelTienda
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
 import com.google.firebase.auth.FirebaseAuth
 @Composable
-fun Registro(navegationCancel:()-> Unit){
+fun Registro(navegationCancel:()-> Unit,
+             viewModelTienda: ViewModelTienda = viewModel(),
+             onRegisterSuccess: () -> Unit){
+    val uiState by viewModelTienda.uistate.collectAsState()
+
  Column (
      horizontalAlignment = Alignment.CenterHorizontally,
      modifier = Modifier.fillMaxSize(),
@@ -31,36 +40,39 @@ fun Registro(navegationCancel:()-> Unit){
          fontSize = 30.sp,
          fontWeight = FontWeight.Bold)
      Spacer(Modifier.padding(10.dp))
-     IntroducirRegi(navegationCancel)
+     IntroducirRegi(navegationCancel, viewModelTienda, uiState, onRegisterSuccess)
  }
 }
 
 @Composable
-fun IntroducirRegi(navegationCancel:()-> Unit){
+fun IntroducirRegi(navegationCancel:()-> Unit, viewmodel: ViewModelTienda, uiState: UiStateTienda, onRegisterSuccess: () -> Unit){
     Column(modifier = Modifier.padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
-        TextField(value = "",
-            onValueChange = {},
+        TextField(value = uiState.loginRegistro,
+            onValueChange = {viewmodel.onEmailRegistroChange(it)},
             singleLine = true, label = { Text("Email") },
             modifier = Modifier.padding(10.dp)
                 .fillMaxWidth()
         )
-        TextField(value = "",
-            onValueChange = {},
+        TextField(value = uiState.contraseñaRegistro,
+            onValueChange = {viewmodel.onContraseñaRegistroChange(it)},
             singleLine = true, label = { Text("Contraseña") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.padding(10.dp)
                 .fillMaxWidth()
         )
-        TextField(value = "",
-            onValueChange = {},
+        TextField(value = uiState.contraseñaRegistroNueva,
+            onValueChange = {viewmodel.onContraseñaRegistroNuevaChange(it)},
             singleLine = true, label = { Text("Repetir Contraseña") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
             modifier = Modifier.padding(10.dp)
                 .fillMaxWidth()
         )
 
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()
+        Button(onClick = {viewmodel.register(
+            onSuccess = onRegisterSuccess,
+            onError = {println(it)}
+        )}, modifier = Modifier.fillMaxWidth()
             .padding(10.dp)) {
             Text("Entrar")
         }
@@ -71,13 +83,5 @@ fun IntroducirRegi(navegationCancel:()-> Unit){
             Text("Cancelar")
         }
     }
-    val auth = FirebaseAuth.getInstance()
 }
 
-@Preview(showBackground = true)
-@Composable
-fun verRegistro(){
-    DominguezBorja_progamacion_firebaseTheme {
-        Registro{}
-    }
-}
