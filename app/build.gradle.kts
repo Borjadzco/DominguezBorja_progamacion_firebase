@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+
+    alias(libs.plugins.googleServices)
     alias(libs.plugins.jetbrain.kotlin.serialization)
 }
 
@@ -45,6 +47,9 @@ dependencies {
     implementation(libs.androidx.navigarion3.runtime)
     implementation(libs.androidx.navigarion3.ui)
     implementation(libs.kotlinx.serialization.core)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.auth)
+
 
 
     implementation(libs.androidx.core.ktx)

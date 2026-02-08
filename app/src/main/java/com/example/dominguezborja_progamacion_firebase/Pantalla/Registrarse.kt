@@ -20,7 +20,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
-
+import com.google.firebase.auth.FirebaseAuth
 @Composable
 fun Registro(navegationCancel:()-> Unit){
  Column (
@@ -71,6 +71,7 @@ fun IntroducirRegi(navegationCancel:()-> Unit){
             Text("Cancelar")
         }
     }
+    val auth = FirebaseAuth.getInstance()
 }
 
 @Preview(showBackground = true)

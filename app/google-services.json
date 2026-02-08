@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "812714372800",
+    "project_id": "basedatosejercicio3",
+    "storage_bucket": "basedatosejercicio3.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:812714372800:android:199d86096234702b868725",
+        "android_client_info": {
+          "package_name": "com.example.dominguezborja_progamacion_firebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCCHcWN8jNxsmXI84gDTn-IllTCv0IPSWs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
