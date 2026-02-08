@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.dominguezborja_progamacion_firebase.Componentes.Navegacion.BasicNavigation
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Home
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
 
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             DominguezBorja_progamacion_firebaseTheme {
-                Home()
+                BasicNavigation()
             }
         }
     }

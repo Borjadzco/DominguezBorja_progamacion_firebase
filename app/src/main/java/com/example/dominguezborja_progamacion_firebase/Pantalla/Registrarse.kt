@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.sp
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
 
 @Composable
-fun Registro(){
+fun Registro(navegationCancel:()-> Unit){
  Column (
      horizontalAlignment = Alignment.CenterHorizontally,
      modifier = Modifier.fillMaxSize(),
@@ -31,12 +31,12 @@ fun Registro(){
          fontSize = 30.sp,
          fontWeight = FontWeight.Bold)
      Spacer(Modifier.padding(10.dp))
-     IntroducirRegi()
+     IntroducirRegi(navegationCancel)
  }
 }
 
 @Composable
-fun IntroducirRegi(){
+fun IntroducirRegi(navegationCancel:()-> Unit){
     Column(modifier = Modifier.padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally) {
         TextField(value = "",
@@ -64,7 +64,9 @@ fun IntroducirRegi(){
             .padding(10.dp)) {
             Text("Entrar")
         }
-        Button(onClick = {}, modifier = Modifier.fillMaxWidth()
+        Button(onClick = {
+            navegationCancel()
+        }, modifier = Modifier.fillMaxWidth()
             .padding(10.dp)) {
             Text("Cancelar")
         }
@@ -75,6 +77,6 @@ fun IntroducirRegi(){
 @Composable
 fun verRegistro(){
     DominguezBorja_progamacion_firebaseTheme {
-        Registro()
+        Registro{}
     }
 }
