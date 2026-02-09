@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Home
+import com.example.dominguezborja_progamacion_firebase.Pantalla.RealHome
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Registro
 
 @Composable
@@ -35,10 +36,17 @@ fun BasicNavigation(){
                         onRegisterSuccess = {}//Aqui tendria que poner las nuevas pantallas pero tengo que crearlas
                     )
                 }
+                is Routes.Home -> NavEntry(key){
+                    RealHome(
+                        onExitHome = {
+                            backStack.removeLastOrNull()
+                        }
+                    )
+                }
                 else -> NavEntry(key = Unit) {
                     Text("error Navegacion")
                 }
-        }
+            }
         }
     )
 }
