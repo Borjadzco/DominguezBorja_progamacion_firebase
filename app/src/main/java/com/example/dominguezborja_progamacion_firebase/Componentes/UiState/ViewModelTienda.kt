@@ -1,7 +1,10 @@
 package com.example.dominguezborja_progamacion_firebase.Componentes.UiState
 
 import androidx.lifecycle.ViewModel
+import com.example.dominguezborja_progamacion_firebase.Componentes.crud.Producto
+import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -12,8 +15,7 @@ class ViewModelTienda : ViewModel() {
 
     private val _uiState = MutableStateFlow(UiStateTienda())
     val uistate: StateFlow<UiStateTienda> = _uiState.asStateFlow()
-
-    fun onEmailChange(email: String) {
+    fun onEmailChange(email: String){
         _uiState.value = _uiState.value.copy(login = email)
     }
 

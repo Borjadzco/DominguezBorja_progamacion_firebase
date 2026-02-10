@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ExitToApp
 import androidx.compose.material3.Button
@@ -25,82 +26,94 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.dominguezborja_progamacion_firebase.Componentes.UiState.UiStateTienda
 import com.example.dominguezborja_progamacion_firebase.Componentes.UiState.ViewModelTienda
+import com.example.dominguezborja_progamacion_firebase.Componentes.crud.Producto
+import com.example.dominguezborja_progamacion_firebase.Componentes.crud.ViewModelCrud
 import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_progamacion_firebaseTheme
 
 @Composable
-fun RealHome(viewModelTienda: ViewModelTienda= viewModel(), onExitHome: () -> Unit){
-    val uiState by viewModelTienda.uistate.collectAsState()
+fun RealHome(viewModelCrud: ViewModelCrud = viewModel (),
+             viewModelTienda: ViewModelTienda = viewModel(),
+             onExitHome: () -> Unit){
+    val productos by viewModelCrud.producto.collectAsState()
+    val uiState by viewModelCrud.uistate.collectAsState()
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .padding(20.dp)
+            .fillMaxSize(),
         verticalArrangement = Arrangement.Center) {
 
-        Cabecera(uiState, onExitHome)
+        Cabecera(uiState, onExitHome, viewModelTienda)
         Spacer(modifier = Modifier.padding(25.dp))
-        Cuerpo()
+        Cuerpo(viewModelCrud, uiState)
+        Listado(viewModelCrud, productos)
     }
 }
 @Composable
-fun Cabecera(uiState: UiStateTienda, onExitHome: () -> Unit){
+fun Cabecera(uiState: UiStateTienda, onExitHome: () -> Unit, viewModelTienda: ViewModelTienda){
     Row(modifier = Modifier.fillMaxWidth()) {
         lateinit var email: String
         if (uiState.login.isNotEmpty()){
             var email = uiState.login
             Text("Bienvenido ${email}", modifier = Modifier.weight(1f))
         }else{
-            var email = uiState.loginRegistro
+            var email = uiState.login
             Text("Bienvenido ${email}", modifier = Modifier.weight(1f))
         }
     }
     Icon(imageVector = Icons.Filled.ExitToApp,
         contentDescription = "Exit",
-        modifier = Modifier.clickable{onExitHome()}
+        modifier = Modifier
+            .clickable{onExitHome()}
     )
 }
 
 @Composable
-fun Cuerpo(){
+fun Cuerpo(viewModel: ViewModelCrud, uiState: UiStateTienda) {
+
     Column {
-        TextField(value ="",
-            onValueChange = {},
-            singleLine = true, label = { Text("Nombre Del Producto") },
-            modifier = Modifier.padding(5.dp)
-                .fillMaxWidth()
+        TextField(
+            value = uiState.nombre,
+            onValueChange = { viewModel.onNombreChange(it) },
+            label = { Text("Nombre del producto") },
+            modifier = Modifier.fillMaxWidth()
         )
-        TextField(value ="",
-            onValueChange = {},
-            singleLine = true, label = { Text("Precio") },
-            modifier = Modifier.padding(5.dp)
-                .fillMaxWidth()
+
+        TextField(
+            value = uiState.precio,
+            onValueChange = { viewModel.onPrecioChange(it) },
+            label = { Text("Precio") },
+            modifier = Modifier.fillMaxWidth()
         )
-        TextField(value ="",
-            onValueChange = {},
-            singleLine = true, label = { Text("Descripcion") },
-            modifier = Modifier.padding(15.dp)
-                .fillMaxWidth()
+
+        TextField(
+            value = uiState.descripcion,
+            onValueChange = { viewModel.onDescripcionChange(it) },
+            label = { Text("Descripción") },
+            modifier = Modifier.fillMaxWidth()
         )
-        TextField(value ="",
-            onValueChange = {},
-            singleLine = true, label = { Text("URL de la imagen") },
-            modifier = Modifier.padding(5.dp)
-                .fillMaxWidth()
+
+        TextField(
+            value = uiState.imagenUrl,
+            onValueChange = { viewModel.onImagenChange(it) },
+            label = { Text("URL Imagen") },
+            modifier = Modifier.fillMaxWidth()
         )
-        Button(onClick = {}) {
+
+        Button(onClick = { viewModel.addProducto()}) {
             Text("Agregar Producto")
         }
     }
 }
+
 @Composable
-fun Listado(){
+fun Listado(viewModel: ViewModelCrud,productos: List<Producto>) {
     LazyColumn {
-
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ver(){
-    DominguezBorja_progamacion_firebaseTheme {
-        RealHome {}
+        items(productos) { prod ->
+            ProdItemCard(
+                producto = prod,
+                onDelete = { id -> viewModel.deleteProducto(id) }
+            )
+        }
     }
 }

@@ -35,6 +35,8 @@ androidx-navigarion3-ui = {module = "androidx.navigation3:navigation3-ui", versi
 kotlinx-serialization-core = {module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinxSerializationCore"}
 firebase-bom = {module="com.google.firebase:firebase-bom", version.ref="firebaseBom"}
 firebase-auth = {module="com.google.firebase:firebase-auth"}
+firebase-firestore = {module = "com.google.firebase:firebase-firestore"}
+androidx-lifecycle-viewmodel-ktx = {module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref="lifecycleRuntimeKtx"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

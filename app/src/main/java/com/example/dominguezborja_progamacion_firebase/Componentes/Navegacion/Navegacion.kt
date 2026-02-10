@@ -25,7 +25,9 @@ fun BasicNavigation(){
                         navigationToDetail = {
                         backStack.add(Routes.Registrar)
                     },
-                        onLoginSuccess = {}//Aqui tendria que poner las nuevas pantallas pero tengo que crearlas
+                        onLoginSuccess = {
+                            backStack.add(Routes.Home)
+                        }
                     )
                 }
                 is Routes.Registrar -> NavEntry(key){
@@ -33,7 +35,9 @@ fun BasicNavigation(){
                         navegationCancel = {
                             backStack.removeLastOrNull()
                         },
-                        onRegisterSuccess = {}//Aqui tendria que poner las nuevas pantallas pero tengo que crearlas
+                        onRegisterSuccess = {
+                            backStack.add(Routes.Home)
+                        }
                     )
                 }
                 is Routes.Home -> NavEntry(key){

@@ -6,5 +6,10 @@ data class UiStateTienda (
     val loginRegistro: String = "",
     val contraseñaRegistro: String = "",
     val contraseñaRegistroNueva: String = "",
-    val igual: Boolean = false
+    val igual: Boolean = false,
+
+    val nombre: String = "",
+    val precio: String = "",
+    val descripcion: String = "",
+    val imagenUrl: String = ""
 )
