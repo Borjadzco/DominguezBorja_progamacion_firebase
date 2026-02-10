@@ -51,7 +51,8 @@ fun ProdItemCard(
             Icon(
                 imageVector = Icons.Default.Edit,
                 contentDescription = "Editar",
-                modifier = Modifier.clickable { onEdit(producto) }
+                modifier = Modifier.clickable {
+                    onEdit(producto) }
             )
 
             Icon(

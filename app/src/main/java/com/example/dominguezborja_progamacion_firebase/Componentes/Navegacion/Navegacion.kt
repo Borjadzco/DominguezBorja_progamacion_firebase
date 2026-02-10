@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
+import com.example.dominguezborja_progamacion_firebase.Pantalla.DetalleProducto
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Home
 import com.example.dominguezborja_progamacion_firebase.Pantalla.RealHome
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Registro
@@ -44,7 +45,17 @@ fun BasicNavigation(){
                     RealHome(
                         onExitHome = {
                             backStack.removeLastOrNull()
+                        },
+                        onViewProducto = {
+                            producto ->
+                            backStack.add(Routes.Detalle(producto))
                         }
+                    )
+                }
+                is Routes.Detalle -> NavEntry(key) {
+                    DetalleProducto(
+                        producto = key.producto,
+                        onBack = { backStack.removeLastOrNull() }
                     )
                 }
                 else -> NavEntry(key = Unit) {
