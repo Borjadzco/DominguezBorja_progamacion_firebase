@@ -8,4 +8,6 @@ sealed class Routes {
     data object  Home
 
     data class Detalle(val producto: Producto)
+
+    data class EditarProducto(val producto: Producto)
 }

@@ -34,7 +34,8 @@ import com.example.dominguezborja_progamacion_firebase.ui.theme.DominguezBorja_p
 fun RealHome(viewModelCrud: ViewModelCrud = viewModel (),
              viewModelTienda: ViewModelTienda = viewModel(),
              onExitHome: () -> Unit,
-             onViewProducto: (Producto) -> Unit){
+             onViewProducto: (Producto) -> Unit,
+             onEdit: (Producto) -> Unit){
     val productos by viewModelCrud.producto.collectAsState()
     val uiState by viewModelCrud.uistate.collectAsState()
     Column(
@@ -47,7 +48,7 @@ fun RealHome(viewModelCrud: ViewModelCrud = viewModel (),
         Cabecera(uiState, onExitHome, viewModelTienda)
         Spacer(modifier = Modifier.padding(25.dp))
         Cuerpo(viewModelCrud, uiState)
-        Listado(viewModelCrud, productos, onViewProducto)
+        Listado(viewModelCrud, productos, onViewProducto, onEdit)
     }
 }
 @Composable
@@ -108,7 +109,7 @@ fun Cuerpo(viewModel: ViewModelCrud, uiState: UiStateTienda) {
 }
 
 @Composable
-fun Listado(viewModel: ViewModelCrud,productos: List<Producto>, onViewProducto: (Producto) -> Unit) {
+fun Listado(viewModel: ViewModelCrud,productos: List<Producto>, onViewProducto: (Producto) -> Unit, onEdit: (Producto) -> Unit) {
     LazyColumn {
         items(productos) { prod ->
             ProdItemCard(
@@ -116,6 +117,9 @@ fun Listado(viewModel: ViewModelCrud,productos: List<Producto>, onViewProducto: 
                 onDelete = { id -> viewModel.deleteProducto(id) },
                 onView = {producto ->
                     onViewProducto(producto)
+                },
+                onEdit = {producto ->
+                    onEdit(producto)
                 }
             )
         }

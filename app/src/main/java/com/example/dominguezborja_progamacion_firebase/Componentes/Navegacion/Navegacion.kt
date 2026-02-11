@@ -7,6 +7,7 @@ import androidx.compose.runtime.remember
 import androidx.navigation3.runtime.NavEntry
 import androidx.navigation3.ui.NavDisplay
 import com.example.dominguezborja_progamacion_firebase.Pantalla.DetalleProducto
+import com.example.dominguezborja_progamacion_firebase.Pantalla.EditarProducto
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Home
 import com.example.dominguezborja_progamacion_firebase.Pantalla.RealHome
 import com.example.dominguezborja_progamacion_firebase.Pantalla.Registro
@@ -49,6 +50,9 @@ fun BasicNavigation(){
                         onViewProducto = {
                             producto ->
                             backStack.add(Routes.Detalle(producto))
+                        },
+                        onEdit = { producto ->
+                            backStack.add(Routes.EditarProducto(producto))
                         }
                     )
                 }
@@ -58,6 +62,13 @@ fun BasicNavigation(){
                         onBack = { backStack.removeLastOrNull() }
                     )
                 }
+                is Routes.EditarProducto -> NavEntry(key) {
+                    EditarProducto(
+                        producto = key.producto,
+                        onBack = { backStack.removeLastOrNull() }
+                    )
+                }
+
                 else -> NavEntry(key = Unit) {
                     Text("error Navegacion")
                 }

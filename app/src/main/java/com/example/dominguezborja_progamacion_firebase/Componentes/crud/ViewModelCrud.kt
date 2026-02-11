@@ -62,4 +62,22 @@ class ViewModelCrud: ViewModel(){
     fun deleteProducto(id: String) {
         productosCollection.document(id).delete()
     }
+
+    fun updateProducto(
+        id: String,
+        nombre: String,
+        precio: String,
+        descripcion: String,
+        imagenUrl: String
+    ) {
+        val data = mapOf(
+            "nombre" to nombre,
+            "precio" to (precio.toDoubleOrNull() ?: 0.0),
+            "descripcion" to descripcion,
+            "imagenUrl" to imagenUrl
+        )
+
+        productosCollection.document(id).update(data)
+    }
+
 }

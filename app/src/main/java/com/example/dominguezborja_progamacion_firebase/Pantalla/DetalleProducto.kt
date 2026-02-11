@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
 import com.example.dominguezborja_progamacion_firebase.Componentes.crud.Producto
 
 @Composable
@@ -21,6 +22,11 @@ fun DetalleProducto(producto: Producto, onBack: () -> Unit) {
             .padding(20.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        AsyncImage(
+            model = producto.imagenUrl,
+            contentDescription = null,
+        )
 
         Text(producto.nombre, fontSize = 24.sp)
         Text("${producto.precio} €", fontSize = 20.sp)
